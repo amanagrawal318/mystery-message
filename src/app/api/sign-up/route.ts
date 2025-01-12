@@ -61,17 +61,20 @@ export async function POST(request: Request) {
       verifyCode
     );
 
-    if (emailResponse.success) {
+    if (!emailResponse.success) {
       return Response.json(
-        { success: true, message: "User created successfully" },
-        { status: 201 }
-      );
-    } else {
-      return Response.json(
-        { success: false, message: "Failed to send verification email" },
+        { success: false, message: emailResponse.message },
         { status: 500 }
       );
     }
+
+    return Response.json(
+      {
+        success: true,
+        message: "User created successfully, Please verify email",
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Error creating user:", error);
     return Response.json(
