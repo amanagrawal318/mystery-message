@@ -23,7 +23,6 @@ export interface IUser extends Document {
   password: string;
   verifyCode: string;
   verifyCodeExpiry: Date;
-  createdAt: Date;
   isVerified: boolean;
   messages: Message[];
   isAcceptingMessage: boolean;
@@ -49,10 +48,6 @@ const UserSchema: Schema<IUser> = new Schema({
   password: {
     type: String,
     required: [true, "Password is required"],
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
   },
   isVerified: {
     type: Boolean,
